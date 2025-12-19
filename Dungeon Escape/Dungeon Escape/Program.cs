@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Dungeon_Escape;
 //  기본 규칙
@@ -30,6 +31,7 @@ class Program
     private static char Exit = 'E';
     private static char Empty = ' ';
     
+    // 맵 초기값
     private static char[,] Map = new char[,]
     {
         { '#','#','#','#','#','#','#','#','#','#','#','#','#','#'},
@@ -45,6 +47,13 @@ class Program
         { '#','#','#',' ','#',' ','#','#','#','#','#','#','#','#'},
         { '#',' ',' ',' ',' ',' ','#',' ',' ',' ',' ',' ',' ','#'},
         { '#','#','#','#','#','#','#','#','#','#','#','#','#','#'}
+    };
+
+    // 플레이어 좌표 초기값
+    private static Position _playerPos = new Position()
+    {
+        X = 1,
+        Y = 1
     };
     
     
@@ -67,12 +76,15 @@ class Program
             }
 
             // 이동로직 
+            // 다음 좌표
+            NextPosition(Console.ReadKey().Key);
+            
             // 벽 X 문은 같은 색의 열쇠가 있어야 통과
 
             // 문에 접근시
             // 열쇠 없을 때, 있을 때
 
-            // 
+            // 플레이어 좌표 이동 좌표로 초기화
             
         }
         // 게임 끝
@@ -109,6 +121,34 @@ class Program
             }
         }
         return true;
+    }
+
+    static Position NextPosition (ConsoleKey inputKey)
+    {
+        int newX = _playerPos.X;        // 인자값을 주고 있지 않지만 static 필드의 변수를 가져와서 사용 가능
+        int newY = _playerPos.Y;        // Main 함수의 반복문이 끝날 때마다 해당 변수를 초기화 해주고 있음.
+        
+        if (inputKey == ConsoleKey.W) newY--;
+        else if (inputKey == ConsoleKey.A) newX--;
+        else if (inputKey == ConsoleKey.S) newY++;
+        if (inputKey == ConsoleKey.D) newX++;
+        
+        return new Position
+            {
+                X = newX,
+                Y = newY
+            };
+    }
+
+    static void Move(Position pos, Position nextPos)
+    {
+        // 타일 변경 로직
+    }
+    
+    struct Position
+    {
+        public int X;
+        public int Y;
     }
     
 }

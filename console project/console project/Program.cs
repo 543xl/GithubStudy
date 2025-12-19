@@ -326,8 +326,8 @@ class Program
 
     static POSITION GetNextPos(ConsoleKey inputKey)
     {
-        int newX = _playerPos.X;
-        int newY = _playerPos.Y;
+        int newX = _playerPos.X;      // 다음 좌표를 플레이어 좌표에서 잡는데 아 마지막에 플레이어 좌표를 초기화 하니까 
+        int newY = _playerPos.Y;      // 지역 변수여서 초기화 값을 함수 인자값으로 따로 안줘도 되는 것??
         
         if (inputKey == ConsoleKey.W) newY--;       // playerPos를 직접 증감하게 되면 newX,Y가 변화가 없음.
         else if (inputKey == ConsoleKey.A) newX--;  // 기존 값은 그대로 두고 값을 대입한 새 변수를 이용해서 다음 좌표 얻음.
