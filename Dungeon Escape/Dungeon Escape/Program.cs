@@ -55,9 +55,11 @@ class Program
         
         while (true)
         {
-            // setcursorposition
+            // 커서 위치 지정
+            Console.SetCursorPosition(1, 4);
             // 맵 프린트
-
+            PrintMap();
+            
             // 탈출 성공시 반복 탈출
 
             // 이동로직 
@@ -80,6 +82,17 @@ class Program
         Console.WriteLine();
     }
     
+    static void PrintMap()
+    {
+        for (int i = 0; i < Map.GetLength(0); i++)
+        {
+            for (int j = 0; j < Map.GetLength(1); j++)
+            {
+                Console.Write(Map[i, j]);
+            }
+            Console.WriteLine();
+        }
+    }
     
     
 }
