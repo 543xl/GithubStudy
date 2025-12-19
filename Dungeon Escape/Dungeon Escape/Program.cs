@@ -61,6 +61,10 @@ class Program
             PrintMap();
             
             // 탈출 성공시 반복 탈출
+            if (IsClear(Map))
+            {
+                break;
+            }
 
             // 이동로직 
             // 벽 X 문은 같은 색의 열쇠가 있어야 통과
@@ -69,9 +73,10 @@ class Program
             // 열쇠 없을 때, 있을 때
 
             // 
-
+            
         }
         // 게임 끝
+        Console.ReadKey();
     }
 
     static void GuideText()
@@ -93,6 +98,17 @@ class Program
             Console.WriteLine();
         }
     }
-    
+
+    static bool IsClear(char[,] Map)
+    {
+        foreach (char tile in Map)
+        {
+            if (tile == Exit)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     
 }
