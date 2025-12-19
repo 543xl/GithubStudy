@@ -23,8 +23,8 @@ class Program
     private const char WALL = '#';
     private const char EMPTY = ' ';
 
-    private static char[,] map = new char[,]            // 맵 생성
-    {   
+    private static char[,] map = new char[,]   // 맵 생성
+    {
         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
         { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
         { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
@@ -35,7 +35,8 @@ class Program
         { '#', ' ', ' ', ' ', ' ', ' ', 'B', ' ', ' ', '#' },
         { '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#' },
         { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-    };
+    }; 
+    
 
     private static char[,] map1 = new char[,]
     {
@@ -87,7 +88,7 @@ class Program
             { '#',' ','#',' ','B',' ','#',' ',' ','#' },
             { '#',' ','#',' ',' ','P','#',' ',' ','#' },
             { '#',' ','#',' ','B',' ','#',' ','D','#' },
-            { '#',' ','#','#','#','#','#',' ',' ','#' },
+            { '#',' ','#','#',' ','#','#',' ',' ','#' },
             { '#',' ',' ',' ',' ',' ',' ',' ',' ','#' },
             { '#','#','#','#','#','#','#','#','#','#' },
     };
@@ -196,7 +197,7 @@ class Program
         Y = 4
     };
     
-    private static int _movecount = 0;   // static 변수 선언 시 이름에 _를 넣는 이유? 그냥 구분용?
+    private static int _movecount = 0;   // static 변수 선언 시 이름에 _를 넣는 이유는 구분용. 알아보기 쉽게.
 
     static void Main(string[] args)
     {
@@ -204,7 +205,9 @@ class Program
 
         for (int i = 0; i < stages.Length; i++)
         {
+            // 단계가 순차적으로 증가하면서 맵을 불러오기
             LoadMap(i);
+            
             // 게임 안내
             GameGuide(i+1);
             
@@ -214,10 +217,8 @@ class Program
                 // 먼저 이동부터 구현
                 Console.SetCursorPosition(0, 4);
                 Console.WriteLine($"이동 거리 : {_movecount}");
-                Console.WriteLine(_playerPos.X);
-                Console.WriteLine(_playerPos.Y);
                 PrintMap();
-                // 커서 위치를 잡아주는 거로 알고있는데 이걸 하게 되면 왜 맵 프린트가 반복문이 실행될때마다 안되는지?
+                // 커서 위치를 잡아주고 거기에서 반복 프린트를 해서 같은 자리에 덮어쓰기 되는 것.
 
                 // 게임 성공 시
                 if (IsClear(map))
@@ -227,9 +228,10 @@ class Program
                 }
 
                 // 입력된 키를 인식하게 변수 선언 초기화
-                ConsoleKey
-                    inputKey = Console.ReadKey(true).Key; // Console.ReadKey.Key = ConsoleKeyInfo.Key = ConsoleKey
-
+                ConsoleKey inputKey = Console.ReadKey(true).Key; 
+                // ConsoleKeyInfo.Key = ConsoleKey 이고 Console.ReadKey().key = ConsoleKey 임.
+                // ConsoleKeyInfo 구조체에서 Key값을 불러오는 것.
+                
                 // 입력된 키가 아닌 경우 반목문 처음으로
                 if (CantKey(inputKey)) continue;
 
@@ -294,15 +296,16 @@ class Program
 
     static void LoadMap(int i)
     {
+        // char 배열의 맵을 stages 배열의 맵과 같은 주소를 가리키게함.
         char[,] nowMap = stages[i];
         for (int y = 0; y <  nowMap.GetLength(0); y++)               
         {
             for (int x = 0; x <  nowMap.GetLength(1); x++)
             {
-                map[y, x] =  nowMap[y, x];
+                map[y, x] =  nowMap[y, x];          // map 배열로 값 복사
                 if (map[y, x] == PLAYER)
                 {
-                    _playerPos.X = x;
+                    _playerPos.X = x; 
                     _playerPos.Y = y;
                 }
             }
@@ -436,10 +439,4 @@ struct POSITION // 위치 좌표 구조체
 {
     public int X;
     public int Y;
-};
-
-struct Stage
-{
-    public int stage;
-    public char[,] map;
 }
